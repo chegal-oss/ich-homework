@@ -1,7 +1,6 @@
 -- 1   Вывести названия продуктов таблица products, включая количество 
 -- заказанных единиц quantity для каждого продукта 
 -- таблица order_details.
-
 with temp as (
 	select product_id, sum(quantity) as s
     from order_details
@@ -16,9 +15,13 @@ left join order_details as o
 on o.product_id = p.id
 group by p.id;
 
+select product_name, s from products as p
+left join (select product_id, sum(quantity) as s from order_details group by product_id) as o
+on product_id = id;
+
+
 -- 2  Найти все заказы таблица orders, сделанные после 
 -- даты самого первого заказа клиента Lee таблица customers.
-
 with temp as (
 	select min(order_date) as min_date
     from orders as o
