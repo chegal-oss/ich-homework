@@ -47,7 +47,7 @@ order by quantity desc;
 select * from (
 select quantity, rank() over (order by quantity desc) as r from order_details
 order by quantity desc) as t
-where r >= 10;
+where r <= 10;
 
 
 
